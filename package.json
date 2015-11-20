@@ -1,0 +1,24 @@
+{
+  "name": "sample-nodejs-helloworld",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Node.js Hello world app",
+  "author": "Homero Pawlowski <homero.a.pawlowski1@aexp.com>",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.x",
+    "mongodb": "^2.x"
+  },
+  "devDependencies": {
+    "gulp": "*"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"No test available for front-end, moving on...\" && exit 0",
+    "posttest": "./node_modules/.bin/gulp build"
+  },
+  "engine": {
+    "node": "*",
+    "npm": "*"
+  }
+}
