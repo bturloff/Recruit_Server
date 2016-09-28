@@ -6,8 +6,8 @@
   "author": "Homero Pawlowski <homero.a.pawlowski1@aexp.com>",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.x",
-    "mongodb": "^2.x"
+    "express": "^4.14.0",
+    "mongodb": "^2.2.10"
   },
   "devDependencies": {
     "gulp": "*"
