@@ -21,7 +21,6 @@ app.get('/mongo', function(req, res){
   console.log(connect_url);
   MongoClient.connect(connect_url, function(err, db) {
     if(!err) {
-
       res.send('Hello mongo');
     } else {
       console.log(err);
