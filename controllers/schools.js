@@ -8,14 +8,13 @@ module.exports.controller = function(app) {
 /**
  * Bring down the list of most up-to-date schools in the database
  */
-  app.get('/schools', function(req, res) {
+  app.get('/getSchools', function(req, res) {
 
     waterfall([
       function(callback){
 
         //Pull the data from remote mongo server
         schoolSchema.schoolData.find({}, function(err, serverDbData) {
-          console.log(serverDbData);
           callback(null, serverDbData, 'done');
         })
       },
