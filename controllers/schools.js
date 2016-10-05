@@ -1,42 +1,52 @@
-var mongoose            = require('mongoose')
-var waterfall           = require('async-waterfall');
-var schoolSchema        = require('../models/school');
-mongoose.connect("mongodb://"+process.env.MONGODB_USERNAME+":"+process.env.MONGODB_PASSWD+"@"+process.env.MONGODB_SERVICE_HOST+":"+process.env.MONGODB_SERVICE_PORT_MONGO+"/"+process.env.MONGODB_DATABASE);
+var mongoose = require('mongoose')
+var waterfall = require('async-waterfall')
+var schoolSchema = require('../models/school')
+var commonModules = require('../config/modules')
 
-module.exports.controller = function(app) {
+// Establish database connection
+mongoose.connect(commonModules.databaseConnectionString)
 
+module.exports.controller = function (app) {
 /**
  * Bring down the list of most up-to-date schools in the database
  */
-  app.get('/getSchools', function(req, res) {
-
+  app.get('/getSchools', function (req, res) {
     waterfall([
-      function(callback){
-
-        //Pull the data from remote mongo server
-        schoolSchema.schoolData.find({}, function(err, serverDbData) {
-          callback(null, serverDbData, 'done');
+      function (callback) {
+        schoolSchema.schoolData.find({}, function (err, serverDbData) {
+          if (err) {
+            res
+              .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+              .send(err)
+          }
+          callback(null, serverDbData, 'done')
         })
-      },
+      }
     ], function (err, schoolInformationData, result) {
+      if (err) {
+        res.send('errr')
+      }
+      res.json(schoolInformationData)
+    })
+  })
 
-        //Send the queried JSON from DB back to Angular controller
-        res.json(schoolInformationData);
-    });
-  });
+  /**
+   * Store the new school information into the database
+   */
+  app.post('/addSchool/', function (req, res) {
+    waterfall([
+      function (callback) {
+        var schoolInformation = new schoolSchema.schoolData({ 'schoolName': req.body.schoolName, 'schoolAcronym': req.body.schoolAcronym, 'schoolState': req.body.schoolState })
+        callback(null, schoolInformation, 'done')
+      }
+    ], function (err, schoolInformation, result) {
+      schoolInformation.save(function (err) {
+        if (!err) {
+          res
+            .status(commonModules.HttpStatus.OK)
+            .send('School Stored')
+        }
+      })
+    })
+  })
 }
-
-/*
-*Will Deal with this when we store school data into the remote DB
-*/
-// exports.storeSchool = function(req, res) {
-//
-//   var schoolData = new schoolSchema({ schoolName: req.body.schoolName, schoolAcronym: req.body.schoolAcronym, schoolState: req.body.schoolState});
-//   schoolData.save(function(err) {
-//     if (!err) {
-//       console.log("Data saved into the database successfully!");
-//     } else {
-//       console.log(!err);
-//     }
-//   });
-// };

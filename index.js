@@ -1,26 +1,25 @@
-var express = require('express'),
-      http = require('http'),
-      path = require('path'),
-      app = express(),
-      fs = require('fs'),
-      dotenv = require('dotenv').config(),
-      MongoClient = require('mongodb').MongoClient;
+var express = require('express')
+var path = require('path')
+var app = express()
+var fs = require('fs')
+var bodyParser = require('body-parser')
 
-//Environment Variable Defns
-app.set('appport', process.env.SERVERPORT || 5000);
+// Environment Variable Defns
+app.set('appport', process.env.SERVERPORT || 5000)
 app.set('apphost', process.env.SERVERIP || 'localhost')
 
-var app = express();
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+app.use(bodyParser.json())
 
 // Dynamically include routes (Controller)
 fs.readdirSync('./controllers').forEach(function (file) {
-  console.log("called");
-  if(file.substr(-3) == '.js') {
-      route = require('./controllers/' + file);
-      route.controller(app);
+  if (file.substr(-3) === '.js') {
+    var route = require('./controllers/' + file)
+    route.controller(app)
   }
-});
+})
 
-app.listen(process.env.SERVERPORT, process.env.SERVERIP);
-console.log('Running on ' + app.get('appport'));
+app.listen(process.env.SERVERPORT, process.env.SERVERIP)
