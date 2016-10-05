@@ -13,7 +13,7 @@ module.exports.controller = function (app) {
   app.get('/getSchools', function (req, res) {
     waterfall([
       function (callback) {
-        schoolSchema.schoolData.find({}, function (err, serverDbData) {
+        schoolSchema.schoolData.find({}, {_id: 0}, function (err, serverDbData) {
           if (err) {
             res
               .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
@@ -24,8 +24,11 @@ module.exports.controller = function (app) {
       }
     ], function (err, schoolInformationData, result) {
       if (err) {
-        res.send('errr')
+        res
+          .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+          .send(err)
       }
+
       res.json(schoolInformationData)
     })
   })

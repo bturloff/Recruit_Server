@@ -3,6 +3,7 @@ var path = require('path')
 var app = express()
 var fs = require('fs')
 var bodyParser = require('body-parser')
+require('dotenv').config()
 
 // Environment Variable Defns
 app.set('appport', process.env.SERVERPORT || 5000)
