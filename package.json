@@ -6,8 +6,13 @@
   "author": "Homero Pawlowski <homero.a.pawlowski1@aexp.com>",
   "main": "index.js",
   "dependencies": {
+    "async-waterfall": "^0.1.5",
+    "body-parser": "^1.15.2",
+    "dotenv": "^2.0.0",
     "express": "^4.x",
-    "mongodb": "^2.x"
+    "fs": "0.0.1-security",
+    "mongodb": "^2.x",
+    "mongoose": "^4.6.2"
   },
   "devDependencies": {
     "gulp": "*"

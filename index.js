@@ -1,27 +1,26 @@
-var express = require('express');
-var MongoClient = require('mongodb').MongoClient;
+var express = require('express')
+var path = require('path')
+var app = express()
+var fs = require('fs')
+var bodyParser = require('body-parser')
+require('dotenv').config()
 
-// Constants
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-var mongo_port = process.env.MONGODB_SERVICE_PORT_MONGO || 27017;
-var mongo_server = process.env.MONGODB_SERVICE_HOST || 'localhost';
-var mongo_dbname = process.env.MONGODB_DATABASE || 'sampledb';
+// Environment Variable Defns
+app.set('appport', process.env.SERVERPORT || 5000)
+app.set('apphost', process.env.SERVERIP || 'localhost')
 
-// App
-var app = express();
-app.get('/', function (req, res) {
-  res.send('Hello world\n' + JSON.stringify(process.env));
-});
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+app.use(bodyParser.json())
 
-app.get('/mongo', function(req, res){
-  var connect_url = "mongodb://"+mongo_server+":"+mongo_port+"/"+mongo_dbname;
-  MongoClient.connect(connect_url, function(err, db) {
-    if(!err) {
-      console.log("We are connected");
-      res.send('Hello mongo');
-    }
-  });
-});
-app.listen(port, ip);
-console.log('Running on ' + ip + ':' + port);
+// Dynamically include routes (Controller)
+fs.readdirSync('./controllers').forEach(function (file) {
+  if (file.substr(-3) === '.js') {
+    var route = require('./controllers/' + file)
+    route.controller(app)
+  }
+})
+
+app.listen(process.env.SERVERPORT, process.env.SERVERIP)
