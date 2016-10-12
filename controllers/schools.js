@@ -36,7 +36,7 @@ module.exports.controller = function (app) {
   /**
    * Store the new school information into the database
    */
-  app.post('/addSchool/', function (req, res) {
+  app.post('/addSchool', function (req, res) {
     waterfall([
       function (callback) {
         var schoolInformation = new schoolSchema.schoolData({ 'schoolName': req.body.schoolName, 'schoolAcronym': req.body.schoolAcronym, 'schoolState': req.body.schoolState })
