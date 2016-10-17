@@ -15,12 +15,18 @@
     "mongoose": "^4.6.2"
   },
   "devDependencies": {
-    "gulp": "*"
+    "gulp": "*",
+    "istanbul": "^0.4.5",
+    "tape": "^4.6.2"
   },
   "scripts": {
     "start": "node index.js",
     "test": "echo \"No test available for front-end, moving on...\" && exit 0",
-    "posttest": "./node_modules/.bin/gulp build"
+    "posttest": "./node_modules/.bin/gulp build",
+    "test": "istanbul cover tape \"test/*-test.js\"",
+    "lint": "eslint index.js",
+    "ci-test": "istanbul cover tape \"test/*-test.js\" > test.tap && istanbul report clover",
+    "ci-lint": "eslint -f checkstyle index.js > checkstyle-result.xml"
   },
   "engine": {
     "node": "*",
