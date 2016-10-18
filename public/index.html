@@ -12,6 +12,8 @@
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
 		<script src="js/modernizr.custom.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/js_dl.js"></script>
 	</head>
 	<body class="nl-blurred">
 		<div class="container demo-1">
@@ -24,40 +26,40 @@
 			<div class="main clearfix">
 				<form id="nl-form" class="nl-form">
 					I want students from
-					<select>
-						<option value="1" selected>all schools</option>
-						<option value="2">Arizona State</option>
-						<option value="3">Florida State</option>
-						<option value="4">Austin Texas University</option>
-						<option value="2">Princeton University</option>
+					<select id="schoolName">
+						<option value="all" selected>all schools</option>
+						<option value="arizona state">Arizona State</option>
+						<option value="florida state">Florida State</option>
+						<option value="austin texas">Austin Texas University</option>
+						<option value="princeton university">Princeton University</option>
 					</select>
 					<br />from the time of
-					<select>
-						<option value="1" selected>month</option>
-						<option value="2">January</option>
-						<option value="3">Feburary</option>
-						<option value="4">March</option>
-						<option value="5">April</option>
-						<option value="6">May</option>
-						<option value="7">June</option>
-						<option value="8">July</option>
-						<option value="9">August</option>
+					<select id="fromMonth">
+						<option value="01" selected>month</option>
+						<option value="02">January</option>
+						<option value="03">Feburary</option>
+						<option value="04">March</option>
+						<option value="05">April</option>
+						<option value="06">May</option>
+						<option value="07">June</option>
+						<option value="08">July</option>
+						<option value="09">August</option>
 						<option value="10">September</option>
 						<option value="11">October</option>
 						<option value="12">November</option>
 						<option value="13">December</option>
 					</select>
-					<select>
-						<option value="1" selected>day</option>
-						<option value="2">1</option>
-						<option value="3">2</option>
-						<option value="4">3</option>
-						<option value="5">4</option>
-						<option value="6">5</option>
-						<option value="7">6</option>
-						<option value="8">7</option>
-						<option value="9">8</option>
-						<option value="10">9</option>
+					<select id="fromDay">
+            <option value="01" selected>day</option>
+            <option value="02">1</option>
+            <option value="03">2</option>
+            <option value="04">3</option>
+            <option value="05">4</option>
+            <option value="06">5</option>
+            <option value="07">6</option>
+            <option value="08">7</option>
+            <option value="09">8</option>
+            <option value="10">9</option>
 						<option value="11">10</option>
 						<option value="12">11</option>
 						<option value="13">12</option>
@@ -80,39 +82,39 @@
 						<option value="30">29</option>
 						<option value="31">30</option>
 					</select>
-					<select>
-						<option value="1" selected>year</option>
-						<option value="2">2018</option>
-						<option value="3">2017</option>
-						<option value="3">2016</option>
+					<select id="fromYear">
+						<option value="2016" selected>year</option>
+						<option value="2018">2018</option>
+						<option value="2017">2017</option>
+						<option value="2016">2016</option>
 					</select>
 					<br />
 						to the time of
-						<select>
-							<option value="1" selected>month</option>
-							<option value="2">January</option>
-							<option value="3">Feburary</option>
-							<option value="4">March</option>
-							<option value="5">April</option>
-							<option value="6">May</option>
-							<option value="7">June</option>
-							<option value="8">July</option>
-							<option value="9">August</option>
+						<select id="toMonth">
+							<option value="01" selected>month</option>
+							<option value="02">January</option>
+							<option value="03">Feburary</option>
+							<option value="04">March</option>
+							<option value="05">April</option>
+							<option value="06">May</option>
+							<option value="07">June</option>
+							<option value="08">July</option>
+							<option value="09">August</option>
 							<option value="10">September</option>
 							<option value="11">October</option>
 							<option value="12">November</option>
 							<option value="13">December</option>
 						</select>
-						<select>
-							<option value="1" selected>day</option>
-							<option value="2">1</option>
-							<option value="3">2</option>
-							<option value="4">3</option>
-							<option value="5">4</option>
-							<option value="6">5</option>
-							<option value="7">6</option>
-							<option value="8">7</option>
-							<option value="9">8</option>
+						<select id="toDay">
+							<option value="01" selected>day</option>
+							<option value="02">1</option>
+							<option value="03">2</option>
+							<option value="04">3</option>
+							<option value="05">4</option>
+							<option value="06">5</option>
+							<option value="07">6</option>
+							<option value="08">7</option>
+							<option value="09">8</option>
 							<option value="10">9</option>
 							<option value="11">10</option>
 							<option value="12">11</option>
@@ -136,14 +138,14 @@
 							<option value="30">29</option>
 							<option value="31">30</option>
 						</select>
-						<select>
+						<select id="toYear">
 							<option value="1" selected>year</option>
-							<option value="2">2018</option>
-							<option value="3">2017</option>
-							<option value="3">2016</option>
+							<option value="2018">2018</option>
+							<option value="2017">2017</option>
+							<option value="2016">2016</option>
 						</select>
 					<div class="nl-submit-wrap">
-						<button class="nl-submit" type="submit">Export Student CSV Data</button>
+						<div class="nl-submit" onclick='exportData()'>Export Student CSV Data</div>
 					</div>
 					<div class="nl-overlay"></div>
 				</form>
@@ -152,6 +154,36 @@
 		<script src="js/nlform.js"></script>
 		<script>
 			var nlform = new NLForm( document.getElementById( 'nl-form' ) );
+
+      //Parse the form input into unix time for easier processing
+      Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
+
+      //Process the NLP form to the server side in the right format
+			function exportData() {
+
+        var schoolName = document.getElementById("schoolName");
+        var fromMonth   = document.getElementById("fromMonth");
+        var fromDay  = document.getElementById("fromDay");
+        var fromYear  = document.getElementById("fromYear");
+        var toMonth  = document.getElementById("toMonth");
+        var toDay  = document.getElementById("toDay");
+        var toYear  = document.getElementById("toYear");
+
+        var schoolName = schoolName.options[schoolName.selectedIndex].text
+
+        var fromData = fromDay.options[fromDay.selectedIndex].text + '-' + fromMonth.options[fromMonth.selectedIndex].text + '-' + fromYear.options[fromYear.selectedIndex].text;
+        var fromUNIX = new Date(fromData).getUnixTime();
+
+        var toData = toDay.options[toDay.selectedIndex].text + '-' + toMonth.options[toMonth.selectedIndex].text + '-' + toYear.options[toYear.selectedIndex].text;
+        var toUNIX = new Date(toData).getUnixTime();
+
+        encryptedString = btoa(schoolName + '$' + fromUNIX + '$' + toUNIX);
+        processRequest(encryptedString)
+			}
+
+      function processRequest(encryptedString) {
+        $.fileDownload("/exportStudents/" + encryptedString);
+      }
 		</script>
 	</body>
 </html>
