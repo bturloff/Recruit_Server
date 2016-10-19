@@ -1,7 +1,6 @@
 var express = require('express')
 var path = require('path')
 var app = express()
-var fs = require('fs')
 var bodyParser = require('body-parser')
 require('dotenv').config()
 
@@ -14,13 +13,10 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 app.use(bodyParser.json())
+module.exports.app = app
 
-// Dynamically include routes (Controller)
-fs.readdirSync('./controllers').forEach(function (file) {
-  if (file.substr(-3) === '.js') {
-    var route = require('./controllers/' + file)
-    route.controller(app)
-  }
-})
+// Routes for API
+var routes = require('./routes')
 
+// Run server
 app.listen(process.env.SERVERPORT, process.env.SERVERIP)
