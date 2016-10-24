@@ -13,12 +13,7 @@ exports.getSchools = function (req, res) {
   waterfall([
     function (callback) {
       schoolSchema.schoolData.find({}, {_id: 0}, function (err, serverDbData) {
-        if (err) {
-          res
-            .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
-            .send(err)
-        }
-        callback(null, serverDbData, 'done')
+        callback(err, serverDbData, 'done')
       })
     }
   ], function (err, schoolInformationData, result) {
@@ -46,6 +41,11 @@ exports.addSchool = function (req, res) {
         res
           .status(commonModules.HttpStatus.OK)
           .send('School Stored')
+      }
+      else {
+        res
+          .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+          .send(err)
       }
     })
   })
