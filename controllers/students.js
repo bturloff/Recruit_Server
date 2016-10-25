@@ -27,7 +27,7 @@ exports.getStudents = function (req, res) {
               .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
               .send(err)
           }
-          callback(null, serverDbData, 'done')
+          callback(err, serverDbData, 'done')
         })
       }
     ],
