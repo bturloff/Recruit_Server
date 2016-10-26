@@ -9,33 +9,45 @@ var converter = require('json-2-csv')
 mongoose.createConnection(commonModules.databaseConnectionString)
 
 /**
- * Handle the student CSV export functonality
+ * Handle the student CSV export functonal`ity
  * Takes in a ROT64 encrypted string to parse and query the database
  */
 exports.getStudents = function (req, res) {
   waterfall(
     [
       function (callback) {
-        // Split the user data by the delimiter from the query
+        // Get the encoded string passed in and parse the school name
+        var serverDbData = atob(req.params.processingInformation).split('$')
+        var schoolName = serverDbData[0].toLowerCase();
 
-        console.log("THIS GOT CALLED ")
-
-        callback(null, atob(req.params.processingInformation).split('$'))
-      },
-      function (serverDbData, callback) {
-        console.log(serverDbData)
-        studentSchema.studentData.find({'dateApplied': {'$gte': parseInt(serverDbData[1]), '$lte': parseInt(serverDbData[2])}}, '-_id', function (err, serverDbData) {
-          if (err) {
-            res
-              .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
-              .send(err)
+        if (serverDbData[1] <= serverDbData[2]) {
+          if (schoolName == 'all schools') {
+            studentSchema.studentData.find({'dateAppliedUNIX': {'$gte': parseInt(serverDbData[1]), '$lte': parseInt(serverDbData[2])}}, '-_id', function (err, serverDbData) {
+              if (err) {
+                res
+                  .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+                  .send(err)
+              }
+              callback(null, serverDbData, 'done')
+            })
+          } else {
+            studentSchema.studentData.find({'dateAppliedUNIX': {'$gte': parseInt(serverDbData[1]), '$lte': parseInt(serverDbData[2])}, 'schoolName': serverDbData[0]}, '-_id', function (err, serverDbData) {
+              if (err) {
+                res
+                  .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+                  .send(err)
+              }
+              callback(null, serverDbData, 'done')
+            })
           }
-          callback(err, serverDbData)
-        })
+        } else {
+          res
+            .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+            .send('Invalid date range')
+        }
       }
     ],
     function (err, queriedStudentData) {
-
       if (err) throw err
 
       var options = {
@@ -48,21 +60,20 @@ exports.getStudents = function (req, res) {
         prependHeader: true,
         sortHeader: false,
         trimHeaderValues: true,
-        trimFieldValues:  true,
-        keys             : ['studentName', 'schoolName', 'dateApplied']
+        trimFieldValues: true,
+        keys: ['studentName', 'schoolName', 'dateApplied']
       }
 
       var json2csvCallback = function (err, csv) {
         if (err) throw err
-
         res.set({'Content-Disposition': 'attachment; filename=student-recruits.csv', 'Set-Cookie': 'fileDownload=true; path=/'})
         res
           .status(commonModules.HttpStatus.OK)
           .send(csv)
       }
 
-      if (queriedStudentData.length != 0) {
-        converter.json2csv(queriedStudentData[0], json2csvCallback, options)
+      if (queriedStudentData.length !== 0) {
+        converter.json2csv(queriedStudentData, json2csvCallback, options)
       } else {
         res
           .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
