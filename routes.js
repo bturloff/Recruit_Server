@@ -18,3 +18,4 @@ main.app.get('/getStudents/:processingInformation', studentController.getStudent
   * POST Methods
   */
 main.app.post('/addSchool', schoolsController.addSchool)
+main.app.post('/addStudent', studentController.addStudent)

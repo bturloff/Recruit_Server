@@ -90,3 +90,46 @@ exports.getStudents = function (req, res) {
     }
   )
 }
+
+/**
+ * Store the new school information into the database
+ */
+ //TODO: Add resume storing
+exports.addStudent = function (req, res) {
+  waterfall([
+    function (callback) {
+      var studentInformation = new studentSchema.studentData
+      ({'firstName': req.body.firstName,
+        'lastName': req.body.lastName,
+        'emailAddress': req.body.emailAddress,
+        'phoneNumber': req.body.phoneNumber,
+        'majorName': req.body.majorName,
+        'degreeEnrolled': req.body.degreeEnrolled,
+        'schoolName': req.body.schoolName,
+        'gradMonth': req.body.gradMonth,
+        'gradYear': req.body.gradYear,
+        'hasAuthorization': req.body.hasAuthorization,
+        'requiresVisa': req.body.requiresVisa,
+        'locationPreferences': req.body.locationPreferences,
+        'skills': req.body.skills,
+        'careerInterests': req.body.careerInterests,
+        'positionType': req.body.positionType,
+        'retcruiterNotes': req.body.retcruiterNotes,
+        'amexRecruiterName': req.body.amexRecruiterName,
+        'getsInterview': req.body.getsInterview,
+        'rating': req.body.rating,
+        'dateAppliedUNIX': 0,
+        'dateApplied': req.body.dateObtained
+      })
+      callback(null, studentInformation)
+    }
+  ], function (err, studentInformation) {
+    studentInformation.save(function (err) {
+      if (!err) {
+        res
+          .status(commonModules.HttpStatus.OK)
+          .send('Student Stored')
+      }
+    })
+  })
+}
