@@ -18,6 +18,14 @@ exports.getStudents = function (req, res) {
       function (callback) {
         // Get the encoded string passed in and parse the school name
         var serverDbData = atob(req.params.processingInformation).split('$')
+
+        //Handle invalid encoded strings
+        if (serverDbData.length !== 3) {
+          return res
+            .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+            .send('Invalid query string')
+        }
+
         var schoolName = serverDbData[0].toLowerCase();
 
         if (serverDbData[1] <= serverDbData[2]) {
@@ -66,7 +74,7 @@ exports.getStudents = function (req, res) {
 
       var json2csvCallback = function (err, csv) {
         if (err) throw err
-        res.set({'Content-Disposition': 'attachment; filename=student-recruits.csv', 'Set-Cookie': 'fileDownload=true; path=/'})
+        res.set({'Content-Disposition': 'attachment; filename=student-recruits.csv', 'Set-Cookie': 'fileDownload=true; path=/', 'Download-Successful': 'True'})
         res
           .status(commonModules.HttpStatus.OK)
           .send(csv)
