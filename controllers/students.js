@@ -20,19 +20,35 @@ exports.getStudents = function (req, res) {
         callback(null, atob(req.params.processingInformation).split('$'))
       },
       function (serverDbData, callback) {
-        console.log(serverDbData)
-        studentSchema.studentData.find({'dateApplied': {'$gte': parseInt(serverDbData[1]), '$lte': parseInt(serverDbData[2])}}, '-_id', function (err, serverDbData) {
-          if (err) {
-            res
-              .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
-              .send(err)
-          }
-          callback(null, serverDbData, 'done')
-        })
+        var schoolName = serverDbData[0].toLowerCase();
+
+        console.log(schoolName);
+        if (schoolName == 'all schools') {
+          studentSchema.studentData.find({'dateApplied': {'$gte': parseInt(serverDbData[1]), '$lte': parseInt(serverDbData[2])}}, '-_id', function (err, serverDbData) {
+            if (err) {
+              res
+                .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+                .send(err)
+            }
+            console.log(serverDbData)
+            callback(null, serverDbData, 'done')
+          })
+        } else {
+          studentSchema.studentData.find({'dateApplied': {'$gte': parseInt(serverDbData[1]), '$lte': parseInt(serverDbData[2])}, 'schoolName': serverDbData[0]}, '-_id', function (err, serverDbData) {
+            if (err) {
+              res
+                .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+                .send(err)
+            }
+            callback(null, serverDbData, 'done')
+          })
+        }
       }
     ],
     function (err, queriedStudentData) {
       if (err) throw err
+
+      console.log(queriedStudentData)
 
       var options = {
         delimiter : {
@@ -55,7 +71,7 @@ exports.getStudents = function (req, res) {
         res.set({'Content-Disposition': 'attachment; filename=student-recruits.csv'})
         res.send(csv)
       }
-      converter.json2csv(queriedStudentData[0], json2csvCallback, options)
+      converter.json2csv(queriedStudentData, json2csvCallback, options)
     }
   )
 }
