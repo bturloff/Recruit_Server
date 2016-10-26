@@ -5,17 +5,22 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>American Express Recuriting Export Tool</title>
-		<meta name="description" content="Natural Language Form with custom text input and drop-down lists" />
-		<meta name="keywords" content="Natural Language UI, sentence form, text input, contenteditable, html5, css3, jquery" />
-		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- CSS INCLUDE -->
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link rel="stylesheet" type="text/css" href="css/errors.css" />
+
+    <!-- JAVASCRIPT INCLUDE -->
 		<script src="js/modernizr.custom.js"></script>
+    <script src="js/form_validation.js"></script>
+    <script src="js/load_defaults.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/js_dl.js"></script>
 	</head>
 	<body class="nl-blurred">
+
 		<div class="container demo-1">
 			<!-- Top Navigation -->
 			<div class="codrops-top clearfix">
@@ -23,15 +28,21 @@
 			<header>
 				<h1>American Express Recruiting <span>Simple CSV Student Export Tool</span></h1>
 			</header>
+
+      <div class="center-container">
 			<div class="main clearfix">
 				<form id="nl-form" class="nl-form">
 					I want students from
 					<select id="schoolName">
 						<option value="all" selected>all schools</option>
-						<option value="arizona state">Arizona State</option>
-						<option value="florida state">Florida State</option>
-						<option value="austin texas">Austin Texas University</option>
-						<option value="princeton university">Princeton University</option>
+						<option value="asu">Arizona State University</option>
+						<option value="ua">University of Arizona</option>
+						<option value="ut">University of Texas-Austin</option>
+						<option value="ucla">University of California, Los Angeles</option>
+						<option value="um">University of Michigan</option>
+						<option value="ufl">University of Florida</option>
+						<option value="cu">Cornell University</option>
+						<option value="gt">Georgia Tech</option>
 					</select>
 					<br />from the time of
 					<select id="fromMonth">
@@ -84,7 +95,7 @@
 						<option value="31">31</option>
 					</select>
 					<select id="fromYear">
-						<option value="2016" selected>year</option>
+						<option value="1" selected>year</option>
 						<option value="2018">2018</option>
 						<option value="2017">2017</option>
 						<option value="2016">2016</option>
@@ -152,40 +163,23 @@
 					<div class="nl-overlay"></div>
 				</form>
 			</div>
+
+      <!-- ERROR MESSAGE INFORMATION -->
+      <div class="isa_error" id="validation_error">
+        <i class="fa fa-times-circle" id="error_logo"></i>
+        <span id="error_text">Ensure that the start date is not greater that the end date.</span>
+      </div>
+
+    </div>
 		</div><!-- /container -->
+
+    <!-- Load Default Dates -->
+    <script>
+      getDate();
+    </script>
+
+    <!-- JS INCLUDES -->
 		<script src="js/nlform.js"></script>
-		<script>
-			var nlform = new NLForm( document.getElementById( 'nl-form' ) );
-
-      //Parse the form input into unix time for easier processing
-      Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
-
-      //Process the NLP form to the server side in the right format
-			function exportData() {
-
-        var schoolName = document.getElementById("schoolName");
-        var fromMonth   = document.getElementById("fromMonth");
-        var fromDay  = document.getElementById("fromDay");
-        var fromYear  = document.getElementById("fromYear");
-        var toMonth  = document.getElementById("toMonth");
-        var toDay  = document.getElementById("toDay");
-        var toYear  = document.getElementById("toYear");
-
-        var schoolName = schoolName.options[schoolName.selectedIndex].text
-
-        var fromData = fromDay.options[fromDay.selectedIndex].text + '-' + fromMonth.options[fromMonth.selectedIndex].text + '-' + fromYear.options[fromYear.selectedIndex].text;
-        var fromUNIX = new Date(fromData).getUnixTime();
-
-        var toData = toDay.options[toDay.selectedIndex].text + '-' + toMonth.options[toMonth.selectedIndex].text + '-' + toYear.options[toYear.selectedIndex].text;
-        var toUNIX = new Date(toData).getUnixTime();
-
-        encryptedString = btoa(schoolName + '$' + fromUNIX + '$' + toUNIX);
-        processRequest(encryptedString)
-			}
-
-      function processRequest(encryptedString) {
-        $.fileDownload("/getStudents/" + encryptedString);
-      }
-		</script>
+    <script src="js/csv_export.js"></script>
 	</body>
 </html>

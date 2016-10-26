@@ -13,7 +13,7 @@
 .nl-form {
 	width: 100%;
 	margin: 0.3em auto 0 auto;
-	font-size: 3em;
+	font-size: 2em;
 	line-height: 1.5;
 }
 
@@ -135,7 +135,7 @@
 	content: "\e000";
 	position: absolute;
 	right: 1em;
-	font-size: 50%;
+	font-size: 30%;
 	line-height: 3;
 }
 
@@ -164,7 +164,7 @@
 
 .nl-field-go:before {
 	content: "\e001";
-	font-size: 75%;
+	font-size: 35%;
 	color: #fff;
 	width: 100%;
 	line-height: 2.5;
@@ -275,7 +275,7 @@ input:focus::-ms-input-placeholder {
 
 @media screen and (max-width: 45em) {
 	.nl-form {
-		font-size: 3em;
+		font-size: 2em;
 	}
 }
 
@@ -283,4 +283,8 @@ input:focus::-ms-input-placeholder {
 	.nl-form {
 		font-size: 2em;
 	}
+}
+
+.nl-submit {
+	width: 500px;
 }

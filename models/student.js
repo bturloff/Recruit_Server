@@ -5,7 +5,8 @@ var Schema = mongoose.Schema
 var studentSchema = new Schema({
   studentName: String,
   schoolName: String,
-  dateApplied: Number
+  dateAppliedUNIX: Number,
+  dateApplied: String
 }, {collection: 'students'})
 
 // Assign the schema to the proper data
