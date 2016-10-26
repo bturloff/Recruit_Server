@@ -114,7 +114,7 @@ exports.addStudent = function (req, res) {
         'skills': req.body.skills,
         'careerInterests': req.body.careerInterests,
         'positionType': req.body.positionType,
-        'retcruiterNotes': req.body.retcruiterNotes,
+        'recruiterNotes': req.body.recruiterNotes,
         'amexRecruiterName': req.body.amexRecruiterName,
         'getsInterview': req.body.getsInterview,
         'rating': req.body.rating,
