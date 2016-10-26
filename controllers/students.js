@@ -17,6 +17,9 @@ exports.getStudents = function (req, res) {
     [
       function (callback) {
         // Split the user data by the delimiter from the query
+
+        console.log("THIS GOT CALLED ")
+
         callback(null, atob(req.params.processingInformation).split('$'))
       },
       function (serverDbData, callback) {
@@ -27,11 +30,12 @@ exports.getStudents = function (req, res) {
               .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
               .send(err)
           }
-          callback(err, serverDbData, 'done')
+          callback(err, serverDbData)
         })
       }
     ],
     function (err, queriedStudentData) {
+
       if (err) throw err
 
       var options = {
@@ -50,12 +54,20 @@ exports.getStudents = function (req, res) {
 
       var json2csvCallback = function (err, csv) {
         if (err) throw err
-        console.log(csv)
 
-        res.set({'Content-Disposition': 'attachment; filename=student-recruits.csv'})
-        res.send(csv)
+        res.set({'Content-Disposition': 'attachment; filename=student-recruits.csv', 'Set-Cookie': 'fileDownload=true; path=/'})
+        res
+          .status(commonModules.HttpStatus.OK)
+          .send(csv)
       }
-      converter.json2csv(queriedStudentData[0], json2csvCallback, options)
+
+      if (queriedStudentData.length != 0) {
+        converter.json2csv(queriedStudentData[0], json2csvCallback, options)
+      } else {
+        res
+          .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+          .send(err)
+      }
     }
   )
 }

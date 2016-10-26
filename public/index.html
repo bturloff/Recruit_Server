@@ -5,17 +5,22 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>American Express Recuriting Export Tool</title>
-		<meta name="description" content="Natural Language Form with custom text input and drop-down lists" />
-		<meta name="keywords" content="Natural Language UI, sentence form, text input, contenteditable, html5, css3, jquery" />
-		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- CSS INCLUDE -->
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link rel="stylesheet" type="text/css" href="css/errors.css" />
+
+    <!-- JAVASCRIPT INCLUDE -->
 		<script src="js/modernizr.custom.js"></script>
+    <script src="js/form_validation.js"></script>
+    <script src="js/load_defaults.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/js_dl.js"></script>
 	</head>
 	<body class="nl-blurred">
+
 		<div class="container demo-1">
 			<!-- Top Navigation -->
 			<div class="codrops-top clearfix">
@@ -86,7 +91,7 @@
 						<option value="31">31</option>
 					</select>
 					<select id="fromYear">
-						<option value="2016" selected>year</option>
+						<option value="1" selected>year</option>
 						<option value="2018">2018</option>
 						<option value="2017">2017</option>
 						<option value="2016">2016</option>
@@ -154,12 +159,23 @@
 					<div class="nl-overlay"></div>
 				</form>
 			</div>
+
+      <!-- ERROR MESSAGE INFORMATION -->
+      <div class="isa_error" id="validation_error">
+        <i class="fa fa-times-circle" id="error_logo"></i>
+        <span id="error_text">Ensure that the start date is not greater that the end date.</span>
+      </div>
+
     </div>
 		</div><!-- /container -->
+
+    <!-- Load Default Dates -->
+    <script>
+      getDate();
+    </script>
+
+    <!-- JS INCLUDES -->
 		<script src="js/nlform.js"></script>
     <script src="js/csv_export.js"></script>
-		<script>
-
-		</script>
 	</body>
 </html>
