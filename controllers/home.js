@@ -10,3 +10,6 @@ var commonModules = require('../config/modules')
 exports.index = function (req, res) {
   res.render('../public/index.html')
 }
+exports.studentTable = function (req, res) {
+  res.render('../public/studentTable.html')
+}

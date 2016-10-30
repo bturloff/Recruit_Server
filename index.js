@@ -9,6 +9,7 @@ app.set('appport', process.env.SERVERPORT || 5000)
 app.set('apphost', process.env.SERVERIP || 'localhost')
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '/node_modules/angular-ui-grid')))
 app.use(bodyParser.urlencoded({
     extended: true
 }))
