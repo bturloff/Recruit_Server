@@ -4,6 +4,7 @@ var Schema = mongoose.Schema
 // Schema to store the school information for each recruited university
 var studentSchema = new Schema({
   studentName: String,
+  studentID: Number,
   schoolName: String,
   dateAppliedUNIX: Number,
   dateApplied: String

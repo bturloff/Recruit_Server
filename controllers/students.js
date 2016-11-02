@@ -9,6 +9,34 @@ var converter = require('json-2-csv')
 mongoose.createConnection(commonModules.databaseConnectionString)
 
 /**
+ * Outputs individual student JSON data for angular table info
+ */
+exports.getStudentBio = function (req, res) {
+  // Primary key that will be used to uniquely identify student
+  var studentID = req.params.studentID
+
+  waterfall(
+    [
+      function (callback) {
+        studentSchema.studentData.find({'studentID': studentID}, '-_id', function (err, serverDbData) {
+          if (err) {
+            return res
+              .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+              .send('Query processing problem')
+          } else {
+            callback(null, serverDbData, 'done')
+          }
+        })
+      }
+    ],
+    function (err, queriedStudentData) {
+      if (!err) {
+        res.send(queriedStudentData)
+      }
+    })
+}
+
+/**
  * Handle the student CSV export functonal`ity
  * Takes in a ROT64 encrypted string to parse and query the database
  */

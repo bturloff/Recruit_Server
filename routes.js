@@ -13,6 +13,7 @@ var schoolsController = require('./controllers/schools')
 main.app.get('/', siteController.index)
 main.app.get('/getSchools', schoolsController.getSchools)
 main.app.get('/getStudents/:processingInformation', studentController.getStudents)
+main.app.get('/getStudent/:studentID', studentController.getStudentBio)
 
  /*
   * POST Methods
