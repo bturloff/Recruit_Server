@@ -45,8 +45,8 @@
 					<tbody>
 						<tr ng-repeat="row in displayCollection" class="arrow" data-toggle="modal" data-target="#myModal">
 							<td ng-click="selectPosition(row.studentName, row.schoolName, row.dateApplied)">{{row.studentName}}</td>
-							<td>{{row.schoolName}}</td>
-							<td>{{row.dateApplied}}</td>
+							<td ng-click="selectPosition(row.studentName, row.schoolName, row.dateApplied)">{{row.schoolName}}</td>
+							<td ng-click="selectPosition(row.studentName, row.schoolName, row.dateApplied)">{{row.dateApplied}}</td>
 						</tr>
 					</tbody>
 			</table>
