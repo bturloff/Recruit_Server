@@ -6,6 +6,8 @@
   "author": "Homero Pawlowski <homero.a.pawlowski1@aexp.com>",
   "main": "index.js",
   "dependencies": {
+    "angular": "^1.5.8",
+    "angular-smart-table": "^2.1.8",
     "async-waterfall": "^0.1.5",
     "atob": "^2.0.3",
     "body-parser": "^1.15.2",
