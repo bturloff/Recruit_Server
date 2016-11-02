@@ -37,7 +37,16 @@ recruitingApp.controller('studentTableController', ['$scope', function ($scope) 
       console.dir( xhr );
     });
 
+
+    $scope.selectPosition = function (student, school, date) {
+      console.log(student, school, date)
+      $('#student_name').text(student);
+      $('#school_name').text(school);
+      $('#date_applied').text(date);
+    }
+
 }]);
+
 
 $(document).ready(function(){
 
