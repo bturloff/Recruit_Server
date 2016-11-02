@@ -8,6 +8,9 @@ require('dotenv').config()
 app.set('appport', process.env.SERVERPORT || 5000)
 app.set('apphost', process.env.SERVERIP || 'localhost')
 
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, '/node_modules/angular-smart-table')))
 app.use(bodyParser.urlencoded({
