@@ -7,6 +7,9 @@
 		<title>American Express Recuriting Export Tool</title>
 		<link rel="shortcut icon" href="../favicon.ico">
 
+		<link rel="stylesheet" type="text/css" href="css/modal_default.css" />
+		<link rel="stylesheet" type="text/css" href="css/modal_component.css" />
+
     <!-- CSS INCLUDE -->
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
@@ -50,12 +53,27 @@
 						</tr>
 					</tbody>
 			</table>
-			<!-- Trigger the modal with a button -->
 
+			<!-- Trigger the modal with a button -->
+			<button class="md-trigger" data-modal="modal-7">Nathan Blanford</button>
+
+			<div class="md-modal md-effect-7" id="modal-7">
+				<div class="md-content">
+					<h3>Information for <span class="applicant_name"></span></h3>
+					<div>
+						<p>Application Details</p>
+						<ul>
+							<li><strong>School:</strong> <span class="school_name"></span></li>
+							<li><strong>Data Applied:</strong> <span class="date_applied"></span></li>
+						</ul>
+						<button class="md-close">Close me!</button>
+					</div>
+				</div>
+			</div>
 
 			  <!-- Modal -->
 			  <div class="modal fade" id="myModal" role="dialog">
-			    <div class="modal-dialog">
+			    <div class="modal-dialog md-effect-7">
 
 			      <!-- Modal content-->
 			      <div class="modal-content">
@@ -78,12 +96,17 @@
     </div>
 		</div><!-- /container -->
 
+		<!-- classie.js by @desandro: https://github.com/desandro/classie -->
+		<script src="js/classie.js"></script>
+		<script src="js/modalEffects.js"></script>
+
+		<!-- for the blur effect -->
+		<!-- by @derSchepp https://github.com/Schepp/CSS-Filters-Polyfill -->
 		<script>
-
-			function modalMe(worked) {
-				alert('hi')
-			}
-
+			// this is important for IEs
+			var polyfilter_scriptpath = '/js/';
 		</script>
+		<script src="js/cssParser.js"></script>
+		<script src="js/css-filters-polyfill.js"></script>
 	</body>
 </html>
