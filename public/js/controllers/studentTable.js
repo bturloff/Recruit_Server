@@ -38,11 +38,22 @@ recruitingApp.controller('studentTableController', ['$scope', function ($scope) 
     });
 
 
-    $scope.selectPosition = function (student, school, date) {
+    $scope.selectPosition = function (student, school, date, major, visa, interests) {
       console.log(student, school, date)
       $('#student_name').text(student);
       $('#school_name').text(school);
       $('#date_applied').text(date);
+      $('#major').text(major);
+      $('#visa').text(visa);
+      if(visa == "Yes"){
+        $('#visa').addClass("label label-danger");
+        $('#visa').removeClass("label-success");
+      }
+      else{
+        $('#visa').addClass("label label-success");
+        $('#visa').removeClass("label-danger");
+      }
+      $('#interests').text(interests);
     }
 
 }]);

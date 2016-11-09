@@ -31,3 +31,10 @@ thead{
 table {
   border-radius: 18px;
 }
+.modal-dialog {
+  width: 900px;
+  margin: 30px auto;
+}
+.modal-content{
+  background-color: #F0F0F0 ;
+}
