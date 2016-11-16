@@ -80,28 +80,28 @@ exports.storeStudent = function (req, res) {
     waterfall([
       function (callback) {
         var studentInformation = new studentSchema.studentData
-        ({"studentName": req.studentName,
-          "schoolName": req.schoolName,
-          "dateAppliedUNIX": req.dateAppliedUNIX,
-          "dateApplied": req.dateApplied,
-          "firstName": req.firstName,
-          "lastName": req.lastName,
-          "emailAddress": req.emailAddress,
-          "phoneNumber": req.phoneNumber,
-          "majorName": req.majorName,
-          "degreeEnrolled": req.degreeEnrolled,
-          "gradMonth": req.gradMonth,
-          "gradYear": req.gradYear,
-          "hasAuthorization": req.hasAuthorization,
-          "requiresVisa": req.requiresVisa,
-          "locationPreferences": req.locationPreferences,
-          "skills": req.skills,
-          "careerInterests": req.careerInterests,
-          "positionType": req.positionType,
-          "recruiterNotes": req.recruiterNotes,
-          "amexRecruiterName": req.amexRecruiterName,
-          "getsInterview": req.getsInterview,
-          "rating": req.rating
+        ({"studentName": req.body.studentName,
+          "schoolName": req.body.schoolName,
+          "dateAppliedUNIX": req.body.dateAppliedUNIX,
+          "dateApplied": req.body.dateApplied,
+          "firstName": req.body.firstName,
+          "lastName": req.body.lastName,
+          "emailAddress": req.body.emailAddress,
+          "phoneNumber": req.body.phoneNumber,
+          "majorName": req.body.majorName,
+          "degreeEnrolled": req.body.degreeEnrolled,
+          "gradMonth": req.body.gradMonth,
+          "gradYear": req.body.gradYear,
+          "hasAuthorization": req.body.hasAuthorization,
+          "requiresVisa": req.body.requiresVisa,
+          "locationPreferences": req.body.locationPreferences,
+          "skills": req.body.skills,
+          "careerInterests": req.body.careerInterests,
+          "positionType": req.body.positionType,
+          "recruiterNotes": req.body.recruiterNotes,
+          "amexRecruiterName": req.body.amexRecruiterName,
+          "getsInterview": req.body.getsInterview,
+          "rating": req.body.rating
         })
         callback(null, studentInformation, 'done')
       }
@@ -111,6 +111,11 @@ exports.storeStudent = function (req, res) {
           res
             .status(commonModules.HttpStatus.OK)
             .send('Student Stored')
+        }
+        else {
+          res
+            .status(commonModules.HttpStatus.INTERNAL_SERVER_ERROR)
+            .send(err)
         }
       })
     })

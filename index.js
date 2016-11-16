@@ -20,3 +20,4 @@ var routes = require('./routes')
 
 // Run server
 app.listen(process.env.SERVERPORT, process.env.SERVERIP)
+// app.listen(5000, 'localhost') //Used for testing purposes
