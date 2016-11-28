@@ -103,14 +103,14 @@ exports.storeStudent = function (req, res) {
           "getsInterview": req.body.getsInterview,
           "rating": req.body.rating
         })
-        callback(null, studentInformation, 'done')
+        callback(null, studentInformation, req.body.id)
       }
     ], function (err, studentInformation, result) {
       studentInformation.save(function (err) {
         if (!err) {
           res
             .status(commonModules.HttpStatus.OK)
-            .send('Student Stored')
+            .send(result)
         }
         else {
           res
