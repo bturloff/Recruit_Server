@@ -20,3 +20,4 @@ main.app.get('/getStudentsJson', studentController.getStudentsJson)
   * POST Methods
   */
 main.app.post('/addSchool', schoolsController.addSchool)
+main.app.post('/addStudent', studentController.storeStudent)
