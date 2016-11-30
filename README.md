@@ -8,7 +8,7 @@ It's important to note that all devs must have a .env file loaded into the root 
 ```
 
 #Running Unit Tests
-
+The unit testing framework currently set is Mocha. The test alias is defined in the `package.json`. As you can see in the file, the alias to run the tests is as follows: `npm test`. This will ensure the entire codebase is passing as you continuously write new code.
 
 
 #Overall Structure
