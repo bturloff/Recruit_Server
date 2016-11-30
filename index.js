@@ -9,9 +9,9 @@ app.set('appport', process.env.SERVERPORT || 5000)
 app.set('apphost', process.env.SERVERIP || 'localhost')
 
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(bodyParser.urlencoded({
-    extended: true
-}))
+// app.use(bodyParser.urlencoded({
+//     extended: true
+// }))
 
 app.use(bodyParser.json({limit: '100mb'}));
 app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
@@ -21,5 +21,5 @@ module.exports.app = app
 var routes = require('./routes')
 
 // Run server
-app.listen(process.env.SERVERPORT, process.env.SERVERIP)
+app.listen(process.env.SERVERPORT)
 // app.listen(5000, 'localhost') //Used for testing purposes

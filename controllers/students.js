@@ -82,7 +82,7 @@ exports.storeStudent = function (req, res) {
         var studentInformation = new studentSchema.studentData
         ({"studentName": req.body.studentName,
           "schoolName": req.body.schoolName,
-          "dateAppliedUNIX": req.body.dateAppliedUNIX,
+          "dateAppliedUNIX": String(req.body.dateObtained),
           "dateApplied": req.body.dateApplied,
           "firstName": req.body.firstName,
           "lastName": req.body.lastName,
@@ -101,7 +101,9 @@ exports.storeStudent = function (req, res) {
           "recruiterNotes": req.body.recruiterNotes,
           "amexRecruiterName": req.body.amexRecruiterName,
           "getsInterview": req.body.getsInterview,
-          "rating": req.body.rating
+          "rating": req.body.rating,
+          "resumeImage1": req.body.resumeImage1,
+          "resumeImage2": req.body.resumeImage2
         })
         callback(null, studentInformation, req.body.id)
       }
@@ -110,7 +112,7 @@ exports.storeStudent = function (req, res) {
         if (!err) {
           res
             .status(commonModules.HttpStatus.OK)
-            .send(result)
+            .send(String(result))
         }
         else {
           res

@@ -24,7 +24,9 @@ var studentSchema = new Schema({
   recruiterNotes: String,
   amexRecruiterName: String,
   getsInterview: String,
-  rating: String
+  rating: String,
+  resumeImage1: Buffer,
+  resumeImage2: Buffer
 }, {collection: 'students'})
 
 // Assign the schema to the proper data
