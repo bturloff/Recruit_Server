@@ -11,8 +11,10 @@ var schoolsController = require('./controllers/schools')
   * GET Methods
   */
 main.app.get('/', siteController.index)
+main.app.get('/studentTable', siteController.studentTable)
 main.app.get('/getSchools', schoolsController.getSchools)
 main.app.get('/getStudents/:processingInformation', studentController.getStudents)
+main.app.get('/getStudentsJson', studentController.getStudentsJson)
 
  /*
   * POST Methods

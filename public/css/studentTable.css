@@ -1,0 +1,40 @@
+.myGrid {
+    width: 500px;
+    height: 250px;
+  }
+
+  body{
+    background-color: #2980b9;
+    user-select:none;
+  }
+
+  .pointer th{
+    cursor: pointer;
+  }
+.arrow{
+  cursor: arrow;
+}
+
+td{
+  cursor: default;
+}
+tbody tr:nth-child(odd) {
+    background: red;
+}
+
+tbody tr:nth-child(even) {
+    background: white;
+}
+thead{
+  background: WhiteSmoke;
+}
+table {
+  border-radius: 18px;
+}
+.modal-dialog {
+  width: 900px;
+  margin: 30px auto;
+}
+.modal-content{
+  background-color: #F0F0F0 ;
+}
