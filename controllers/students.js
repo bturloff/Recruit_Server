@@ -205,3 +205,12 @@ exports.getStudents = function (req, res) {
     }
   )
 }
+
+exports.getStudentsJson = function (req, res) {
+
+  var studentsJson = studentSchema.studentData.find().lean().exec(function(err, docs) {    
+    if (err) throw error;
+    res.status(commonModules.HttpStatus.OK)
+              .send(docs);
+  });
+}
